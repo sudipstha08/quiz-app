@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 
 export default function Home() {
   useEffect(() => {
-    Router.push('/home')
+    Router.push('/quiz')
   }, [])
 
   return <div>Loading.....</div>
