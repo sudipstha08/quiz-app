@@ -4,7 +4,7 @@ interface IProps {
   question: string
   answers: string[]
   callback: any
-  userAnswer: boolean
+  userAnswer: any
   questionNum: number
   totalQuestions: number
 }
