@@ -1,5 +1,4 @@
-## Next.js TS template :books:
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Quiz App
 
 ## Basic commands :wrench:
 
@@ -19,4 +18,4 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 | `axios`           | promise based HTTP client  |
 | `react-query`     | data fetching library      |
 | `eslint/prettier` | linting                    |
-
+| `styled-components` | css to style your components |
