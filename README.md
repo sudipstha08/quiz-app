@@ -19,3 +19,6 @@
 | `react-query`     | data fetching library      |
 | `eslint/prettier` | linting                    |
 | `styled-components` | css to style your components |
+
+<h5>Link to api </h5>
+- https://opentdb.com/api_config.php

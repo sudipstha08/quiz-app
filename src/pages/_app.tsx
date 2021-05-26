@@ -10,6 +10,15 @@ function MyApp({ Component, pageProps }: AppProps) {
     <>
       <Head>
         <title>Next | Template</title>
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Catamaran:wght@700&display=swap"
+          rel="stylesheet"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Catamaran:wght@700&family=Fascinate+Inline&display=swap"
+          rel="stylesheet"
+        />
       </Head>
       <QueryClientProvider client={queryClient}>
         <Component {...pageProps} />
