@@ -2,16 +2,16 @@ import React, { FC } from 'react'
 
 interface IProps {
   question: string
-  answer: string[]
+  answers: string[]
   callback: any
-  userAnswer: string
+  userAnswer: boolean
   questionNum: number
   totalQuestions: number
 }
 
 const QuestionCard: FC<IProps> = ({
   question,
-  answer,
+  answers,
   callback,
   userAnswer,
   questionNum,
@@ -22,6 +22,16 @@ const QuestionCard: FC<IProps> = ({
       <p className="number">
         Question: {questionNum} / {totalQuestions}
       </p>
+      <p dangerouslySetInnerHTML={{ __html: question }} />
+      <div>
+        {answers.map(answer => (
+          <div key={answer}>
+            <button disabled={userAnswer} onClick={callback}>
+              <span dangerouslySetInnerHTML={{ __html: answer }}></span>
+            </button>
+          </div>
+        ))}
+      </div>
     </div>
   )
 }
