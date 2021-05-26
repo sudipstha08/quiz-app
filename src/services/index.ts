@@ -1,1 +1,1 @@
-export { fetchData } from './home'
+export { fetchQuizQuestions } from './quiz'
