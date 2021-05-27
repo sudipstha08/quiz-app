@@ -4,6 +4,7 @@ import { QuestionCard } from '../../components'
 import { fetchQuizQuestions } from '../../services'
 import { Difficulty, Question, QuestionState } from '../../services/quiz'
 import { shuffleArray } from '../../utils/shuffleArray'
+import { Wrapper } from '../../styles/pages/quiz'
 
 export type AnswerObject = {
   question: string
@@ -81,14 +82,14 @@ const HomePage = () => {
   }
 
   return (
-    <div>
+    <Wrapper>
       <h1>Quiz App</h1>
       {(gameOver || userAnswers.length === TOTAL_QUESTIONS) && (
         <button className="start" onClick={startTrivia}>
           Start Trivia
         </button>
       )}
-      {!gameOver && <p className="score">Score:</p>}
+      {!gameOver && <p className="score">Score: {score}</p>}
       {loading && <p>Loading Questions...</p>}
       {!loading && !gameOver && (
         <QuestionCard
@@ -108,7 +109,7 @@ const HomePage = () => {
             Next
           </button>
         )}
-    </div>
+    </Wrapper>
   )
 }
 
