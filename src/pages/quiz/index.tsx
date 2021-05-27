@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useQuery } from 'react-query'
 import { QuestionCard } from '../../components'
 import { fetchQuizQuestions } from '../../services'
@@ -21,61 +21,69 @@ const HomePage = () => {
   const [gameOver, setGameOver] = useState(true)
   const TOTAL_QUESTIONS = 10
 
-  const startTrivia = async () => {
-    setLoading(true)
-    setGameOver(false)
+  const { data, refetch } = useQuery(
+    'fetchQuizQuestions',
+    () => fetchQuizQuestions(TOTAL_QUESTIONS, Difficulty.EASY),
+    {
+      refetchOnWindowFocus: false,
+      enabled: false,
+    },
+  )
 
-    const newQuestions = await fetchQuizQuestions(
-      TOTAL_QUESTIONS,
-      Difficulty.EASY,
-    )
+  useEffect(() => {
+    const questionsData = data?.data.results?.map((question: Question) => ({
+      ...question,
+      answers: shuffleArray([
+        ...question.incorrect_answers,
+        question.correct_answer,
+      ]),
+    }))
 
-    setQuestions(newQuestions?.data)
+    setQuestions(questionsData)
     setScore(0)
     setUserAnswers([])
     setNumber(0)
     setLoading(false)
+  }, [data])
+
+  const startTrivia = async () => {
+    setLoading(true)
+    setGameOver(false)
+    await refetch()
   }
 
   const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {}
 
   const nextQuestion = () => {}
 
-  const { data } = useQuery(
-    'fetchQuizQuestions',
-    () => fetchQuizQuestions(TOTAL_QUESTIONS, Difficulty.EASY),
-    {
-      refetchOnWindowFocus: false,
-    },
-  )
-
-  const test = data?.data.results?.map((question: Question) => ({
-    ...question,
-    answers: shuffleArray([
-      ...question.incorrect_answers,
-      question.correct_answer,
-    ]),
-  }))
-
   return (
     <div>
       <h1>Quiz App</h1>
       {(gameOver || userAnswers.length === TOTAL_QUESTIONS) && (
-        <button className="start" onClick={startTrivia}></button>
+        <button className="start" onClick={startTrivia}>
+          Start Trivia
+        </button>
       )}
       {!gameOver && <p className="score">Score:</p>}
       {loading && <p>Loading Questions...</p>}
-      <QuestionCard
-        questionNum={number + 1}
-        totalQuestions={TOTAL_QUESTIONS}
-        question={questions[number]?.question}
-        answers={questions[number]?.answers}
-        userAnswer={userAnswers ? userAnswers[number] : undefined}
-        callback={checkAnswer}
-      />
-      <button className="next" onClick={nextQuestion}>
-        Next
-      </button>
+      {!loading && !gameOver && (
+        <QuestionCard
+          questionNum={number + 1}
+          totalQuestions={TOTAL_QUESTIONS}
+          question={questions?.[number]?.question}
+          answers={questions?.[number]?.answers}
+          userAnswer={userAnswers ? userAnswers[number] : undefined}
+          callback={checkAnswer}
+        />
+      )}
+      {!gameOver &&
+        !loading &&
+        userAnswers.length === number + 1 &&
+        number !== TOTAL_QUESTIONS - 1 && (
+          <button className="next" onClick={nextQuestion}>
+            Next
+          </button>
+        )}
     </div>
   )
 }
