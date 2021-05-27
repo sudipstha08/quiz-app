@@ -5,7 +5,7 @@ import { fetchQuizQuestions } from '../../services'
 import { Difficulty, Question, QuestionState } from '../../services/quiz'
 import { shuffleArray } from '../../utils/shuffleArray'
 
-type AnswerObject = {
+export type AnswerObject = {
   question: string
   answer: string
   correct: boolean
@@ -38,7 +38,6 @@ const HomePage = () => {
         question.correct_answer,
       ]),
     }))
-
     setQuestions(questionsData)
     setScore(0)
     setUserAnswers([])
@@ -52,9 +51,34 @@ const HomePage = () => {
     await refetch()
   }
 
-  const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {}
+  const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (!gameOver) {
+      // user answer
+      const answer = e.currentTarget.value
+      // Check answer against correct answer
+      const correct = questions[number].correct_answer === answer
+      // Add score if answer is correct
+      if (correct) setScore(prev => prev + 1)
 
-  const nextQuestion = () => {}
+      const answerObject: AnswerObject = {
+        question: questions[number].question,
+        answer,
+        correct,
+        correctAnswer: questions[number].correct_answer,
+      }
+      setUserAnswers(prev => [...prev, answerObject])
+    }
+  }
+
+  const nextQuestion = () => {
+    // Move to next question
+    const nextQuestion = number + 1
+    if (nextQuestion === TOTAL_QUESTIONS) {
+      setGameOver(true)
+      return
+    }
+    setNumber(nextQuestion)
+  }
 
   return (
     <div>
@@ -70,8 +94,8 @@ const HomePage = () => {
         <QuestionCard
           questionNum={number + 1}
           totalQuestions={TOTAL_QUESTIONS}
-          question={questions?.[number]?.question}
-          answers={questions?.[number]?.answers}
+          question={questions[number]?.question}
+          answers={questions[number]?.answers}
           userAnswer={userAnswers ? userAnswers[number] : undefined}
           callback={checkAnswer}
         />

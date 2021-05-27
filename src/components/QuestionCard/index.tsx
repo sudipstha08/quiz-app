@@ -1,10 +1,11 @@
 import React, { FC } from 'react'
+import { AnswerObject } from '../../pages/quiz'
 
 interface IProps {
   question: string
   answers: string[]
-  callback: any
-  userAnswer: any
+  callback: (e: React.MouseEvent<HTMLButtonElement>) => void
+  userAnswer: AnswerObject
   questionNum: number
   totalQuestions: number
 }
@@ -26,7 +27,7 @@ const QuestionCard: FC<IProps> = ({
       <div>
         {answers?.map(answer => (
           <div key={answer}>
-            <button disabled={userAnswer} onClick={callback}>
+            <button disabled={userAnswer} value={answer} onClick={callback}>
               <span dangerouslySetInnerHTML={{ __html: answer }}></span>
             </button>
           </div>
