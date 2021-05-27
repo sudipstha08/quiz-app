@@ -1,4 +1,4 @@
-## Quiz App
+## Quiz App built using Next.js
 
 ## Basic commands :wrench:
 
@@ -20,5 +20,7 @@
 | `eslint/prettier` | linting                    |
 | `styled-components` | css to style your components |
 
-<h5>Link to api </h5>
-- https://opentdb.com/api_config.php
+<h5>API documentation</h5>
+```
+ https://opentdb.com/api_config.php
+```
