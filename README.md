@@ -12,12 +12,12 @@
 
 ## Tech Stacks :package:
 
-|     tech          |      description           |
-|-------------------|----------------------------|
-| `next`            | server side rendering      |
-| `axios`           | promise based HTTP client  |
-| `react-query`     | data fetching library      |
-| `eslint/prettier` | linting                    |
+|     tech            |      description             |
+|---------------------|------------------------------|
+| `next`              | server side rendering        |
+| `axios`             | promise based HTTP client    |
+| `react-query`       | data fetching library        |
+| `eslint/prettier`   | linting                      |
 | `styled-components` | css to style your components |
 
 <h5>API documentation</h5>
