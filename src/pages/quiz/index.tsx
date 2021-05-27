@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { useQuery } from 'react-query'
+import Router from 'next/router'
 import { QuestionCard } from '../../components'
 import { fetchQuizQuestions } from '../../services'
 import { Difficulty, Question, QuestionState } from '../../services/quiz'
 import { shuffleArray } from '../../utils/shuffleArray'
+import { Wrapper } from '../../styles/pages/quiz'
 
 export type AnswerObject = {
   question: string
@@ -43,11 +45,17 @@ const HomePage = () => {
     setUserAnswers([])
     setNumber(0)
     setLoading(false)
+    Router.push('/quiz', {
+      query: {
+        q: 1,
+      },
+    })
   }, [data])
 
   const startTrivia = async () => {
     setLoading(true)
     setGameOver(false)
+    Router.push('/quiz')
     await refetch()
   }
 
@@ -78,17 +86,22 @@ const HomePage = () => {
       return
     }
     setNumber(nextQuestion)
+    Router.push('/quiz', {
+      query: {
+        q: number + 2,
+      },
+    })
   }
 
   return (
-    <div>
+    <Wrapper>
       <h1>Quiz App</h1>
       {(gameOver || userAnswers.length === TOTAL_QUESTIONS) && (
         <button className="start" onClick={startTrivia}>
           Start Trivia
         </button>
       )}
-      {!gameOver && <p className="score">Score:</p>}
+      {!gameOver && <p className="score">Score: {score}</p>}
       {loading && <p>Loading Questions...</p>}
       {!loading && !gameOver && (
         <QuestionCard
@@ -108,7 +121,7 @@ const HomePage = () => {
             Next
           </button>
         )}
-    </div>
+    </Wrapper>
   )
 }
 

@@ -1,11 +1,12 @@
 import React, { FC } from 'react'
 import { AnswerObject } from '../../pages/quiz'
+import { Wrapper, ButtonWrapper } from '../../styles/components/QuestionCard'
 
 interface IProps {
   question: string
   answers: string[]
   callback: (e: React.MouseEvent<HTMLButtonElement>) => void
-  userAnswer: AnswerObject
+  userAnswer: AnswerObject | undefined
   questionNum: number
   totalQuestions: number
 }
@@ -19,21 +20,25 @@ const QuestionCard: FC<IProps> = ({
   totalQuestions,
 }) => {
   return (
-    <div>
+    <Wrapper>
       <p className="number">
         Question: {questionNum} / {totalQuestions}
       </p>
       <p dangerouslySetInnerHTML={{ __html: question }} />
       <div>
         {answers?.map(answer => (
-          <div key={answer}>
-            <button disabled={userAnswer} value={answer} onClick={callback}>
+          <ButtonWrapper
+            key={answer}
+            correct={userAnswer?.correctAnswer === answer}
+            userClicked={userAnswer?.answer === answer}
+          >
+            <button disabled={!!userAnswer} value={answer} onClick={callback}>
               <span dangerouslySetInnerHTML={{ __html: answer }}></span>
             </button>
-          </div>
+          </ButtonWrapper>
         ))}
       </div>
-    </div>
+    </Wrapper>
   )
 }
 
