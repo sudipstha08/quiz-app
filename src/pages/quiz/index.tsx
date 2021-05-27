@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useQuery } from 'react-query'
+import Router from 'next/router'
 import { QuestionCard } from '../../components'
 import { fetchQuizQuestions } from '../../services'
 import { Difficulty, Question, QuestionState } from '../../services/quiz'
@@ -44,11 +45,17 @@ const HomePage = () => {
     setUserAnswers([])
     setNumber(0)
     setLoading(false)
+    Router.push('/quiz', {
+      query: {
+        q: 1,
+      },
+    })
   }, [data])
 
   const startTrivia = async () => {
     setLoading(true)
     setGameOver(false)
+    Router.push('/quiz')
     await refetch()
   }
 
@@ -79,6 +86,11 @@ const HomePage = () => {
       return
     }
     setNumber(nextQuestion)
+    Router.push('/quiz', {
+      query: {
+        q: number + 2,
+      },
+    })
   }
 
   return (
