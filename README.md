@@ -22,6 +22,6 @@
 
 <h5>API documentation</h5>
 
-  ```
+  ```js
     https://opentdb.com/api_config.php
   ```
