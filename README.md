@@ -1,4 +1,4 @@
-## Quiz App built using Next.js
+## Quiz App built using Next.js :sparkles:
 
 ## Basic commands :wrench:
 
