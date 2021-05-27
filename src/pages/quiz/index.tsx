@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from 'react'
 import { useQuery } from 'react-query'
 import { QuestionCard } from '../../components'
@@ -23,7 +21,21 @@ const HomePage = () => {
   const [gameOver, setGameOver] = useState(true)
   const TOTAL_QUESTIONS = 10
 
-  const startTrivia = async () => {}
+  const startTrivia = async () => {
+    setLoading(true)
+    setGameOver(false)
+
+    const newQuestions = await fetchQuizQuestions(
+      TOTAL_QUESTIONS,
+      Difficulty.EASY,
+    )
+
+    setQuestions(newQuestions?.data)
+    setScore(0)
+    setUserAnswers([])
+    setNumber(0)
+    setLoading(false)
+  }
 
   const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {}
 
@@ -48,9 +60,11 @@ const HomePage = () => {
   return (
     <div>
       <h1>Quiz App</h1>
-      <button className="start" onClick={startTrivia}></button>
-      <p className="score">Score:</p>
-      <p>Loading Questions:</p>
+      {(gameOver || userAnswers.length === TOTAL_QUESTIONS) && (
+        <button className="start" onClick={startTrivia}></button>
+      )}
+      {!gameOver && <p className="score">Score:</p>}
+      {loading && <p>Loading Questions...</p>}
       <QuestionCard
         questionNum={number + 1}
         totalQuestions={TOTAL_QUESTIONS}
