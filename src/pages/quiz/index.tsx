@@ -89,11 +89,11 @@ const QuizPage = ({ difficulty, num, type, category }) => {
   return (
     <Wrapper>
       <h1>Quiz App</h1>
-      {(gameOver || userAnswers.length === TOTAL_QUESTIONS) && (
+      {/* {(gameOver || userAnswers.length === TOTAL_QUESTIONS) && (
         <button className="start" onClick={startTrivia}>
           Start Trivia
         </button>
-      )}
+      )} */}
       {!gameOver && <p className="score">Score: {score}</p>}
       {loading && <p>Loading Questions...</p>}
       {!loading && !gameOver && (
