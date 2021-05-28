@@ -16,9 +16,9 @@ const getObj = Enum => {
 
 export default function Home() {
   const [numOfQuestions, setNumOfQuestions] = useState(10)
-  const [difficulty, setDifficulty] = useState(Difficulty.EASY)
-  const [category, setCategory] = useState(Category.AnyCategory)
-  const [type, setType] = useState(Type.Multiple)
+  const [difficulty, setDifficulty] = useState<any>(Difficulty.EASY)
+  const [category, setCategory] = useState<any>(Category.AnyCategory)
+  const [type, setType] = useState<any>(Type.Multiple)
 
   const handleInputChange = e => {
     setNumOfQuestions(e.target.value)
@@ -44,9 +44,9 @@ export default function Home() {
       pathname: '/quiz',
       query: {
         num: numOfQuestions,
-        difficulty: difficulty,
-        category: category,
-        type: type,
+        difficulty: difficulty?.value,
+        category: category?.value,
+        type: type?.value,
       },
     })
   }
