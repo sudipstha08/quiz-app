@@ -1,9 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from 'react'
 import Select from 'react-select'
 import Router from 'next/router'
 import { Wrapper } from '../styles/pages'
 import { Difficulty, Category, Type } from '../utils/seed'
+import { removeEmptyFromObj } from '../utils'
 
 const getObj = Enum => {
   const options: any = []
@@ -48,14 +48,11 @@ export default function Home() {
       type: type?.value,
     }
 
-    const queryObj1 = Object.fromEntries(
-      Object.entries(queryObj).filter(([_, v]) => v != null),
-    )
-
+    const obj: any = removeEmptyFromObj(queryObj)
     Router.push({
       pathname: '/quiz',
       query: {
-        ...queryObj1,
+        ...obj,
       },
     })
   }
