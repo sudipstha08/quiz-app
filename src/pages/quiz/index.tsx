@@ -45,11 +45,6 @@ const HomePage = () => {
     setUserAnswers([])
     setNumber(0)
     setLoading(false)
-    Router.push('/quiz', {
-      query: {
-        q: 1,
-      },
-    })
   }, [data])
 
   const startTrivia = async () => {
@@ -86,11 +81,6 @@ const HomePage = () => {
       return
     }
     setNumber(nextQuestion)
-    Router.push('/quiz', {
-      query: {
-        q: number + 2,
-      },
-    })
   }
 
   return (
