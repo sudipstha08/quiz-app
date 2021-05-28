@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from 'react'
 import Select from 'react-select'
 import Router from 'next/router'
@@ -40,13 +41,21 @@ export default function Home() {
   }
 
   const handleStartTrivia = () => {
+    const queryObj = {
+      num: numOfQuestions,
+      difficulty: difficulty?.value,
+      category: category?.value,
+      type: type?.value,
+    }
+
+    const queryObj1 = Object.fromEntries(
+      Object.entries(queryObj).filter(([_, v]) => v != null),
+    )
+
     Router.push({
       pathname: '/quiz',
       query: {
-        num: numOfQuestions,
-        difficulty: difficulty?.value,
-        category: category?.value,
-        type: type?.value,
+        ...queryObj1,
       },
     })
   }
