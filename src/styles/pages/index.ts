@@ -1,16 +1,6 @@
 import styled from 'styled-components'
 
 export const Wrapper = styled.div`
-  > p {
-    color: #fff;
-  }
-
-  .score {
-    color: #fff;
-    font-size: 2rem;
-    margin: 0;
-  }
-
   h1 {
     font-family: Fascinate Inline, Haettenschweiler, 'Arial Narrow Bold',
       sans-serif;
@@ -28,22 +18,27 @@ export const Wrapper = styled.div`
     font-weight: 400;
   }
 
-  .start,
-  .next {
-    background: linear-gradient(180deg, #fff, #ffcc91);
-    border: 2px solid #d38558;
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0, 25);
+  .form-card {
+    max-width: 1100px;
+    background: #ebfeff;
     border-radius: 10px;
-    height: 40px;
-    margin: 20px 0;
-    padding: 0 40px;
-  }
-
-  .start {
-    max-width: 200px;
-  }
-
-  .score {
+    border: 2px solid #0085a3;
+    padding: 20px;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25);
     text-align: center;
+
+    p {
+      font-size: 1rem;
+    }
+
+    button {
+      background: linear-gradient(180deg, #fff, #ffcc91);
+      border: 2px solid #d38558;
+      box-shadow: 0px 5px 10px rgba(0, 0, 0, 0, 25);
+      border-radius: 10px;
+      height: 40px;
+      margin: 20px 0;
+      padding: 0 40px;
+    }
   }
 `

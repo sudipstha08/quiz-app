@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useQuery } from 'react-query'
-import Router from 'next/router'
+import { GetServerSideProps } from 'next'
 import { QuestionCard } from '../../components'
 import { fetchQuizQuestions } from '../../services'
-import { Difficulty, Question, QuestionState } from '../../services/quiz'
+import { Question, QuestionState } from '../../services/quiz'
 import { shuffleArray } from '../../utils/shuffleArray'
 import { Wrapper } from '../../styles/pages/quiz'
 
@@ -14,7 +14,7 @@ export type AnswerObject = {
   correctAnswer: string
 }
 
-const HomePage = () => {
+const QuizPage = ({ difficulty, num, type, category }) => {
   const [loading, setLoading] = useState(false)
   const [questions, setQuestions] = useState<QuestionState[]>([])
   const [number, setNumber] = useState(0)
@@ -25,7 +25,7 @@ const HomePage = () => {
 
   const { data, refetch } = useQuery(
     'fetchQuizQuestions',
-    () => fetchQuizQuestions(TOTAL_QUESTIONS, Difficulty.EASY),
+    () => fetchQuizQuestions(num, difficulty, category, type),
     {
       refetchOnWindowFocus: false,
       enabled: false,
@@ -45,19 +45,17 @@ const HomePage = () => {
     setUserAnswers([])
     setNumber(0)
     setLoading(false)
-    Router.push('/quiz', {
-      query: {
-        q: 1,
-      },
-    })
   }, [data])
 
   const startTrivia = async () => {
     setLoading(true)
     setGameOver(false)
-    Router.push('/quiz')
     await refetch()
   }
+
+  useEffect(() => {
+    startTrivia()
+  }, [difficulty, num, type, category])
 
   const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (!gameOver) {
@@ -86,11 +84,6 @@ const HomePage = () => {
       return
     }
     setNumber(nextQuestion)
-    Router.push('/quiz', {
-      query: {
-        q: number + 2,
-      },
-    })
   }
 
   return (
@@ -125,4 +118,15 @@ const HomePage = () => {
   )
 }
 
-export default HomePage
+export default QuizPage
+
+export const getServerSideProps: GetServerSideProps = async context => {
+  return {
+    props: {
+      difficulty: context.query?.difficulty || 'easy',
+      type: context.query?.type || 'boolean',
+      num: context.query?.num || '10',
+      category: context.query?.category || '12',
+    },
+  }
+}
