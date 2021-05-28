@@ -6,6 +6,7 @@ import { fetchQuizQuestions } from '../../services'
 import { Question, QuestionState } from '../../services/quiz'
 import { shuffleArray } from '../../utils/shuffleArray'
 import { Wrapper } from '../../styles/pages/quiz'
+import { Difficulty, Type, Category } from '../../utils/seed'
 
 export type AnswerObject = {
   question: string
@@ -89,11 +90,6 @@ const QuizPage = ({ difficulty, num, type, category }) => {
   return (
     <Wrapper>
       <h1>Quiz App</h1>
-      {(gameOver || userAnswers.length === TOTAL_QUESTIONS) && (
-        <button className="start" onClick={startTrivia}>
-          Start Trivia
-        </button>
-      )}
       {!gameOver && <p className="score">Score: {score}</p>}
       {loading && <p>Loading Questions...</p>}
       {!loading && !gameOver && (
@@ -123,10 +119,10 @@ export default QuizPage
 export const getServerSideProps: GetServerSideProps = async context => {
   return {
     props: {
-      difficulty: context.query?.difficulty || 'easy',
-      type: context.query?.type || 'boolean',
+      difficulty: context.query?.difficulty || Difficulty.EASY,
+      type: context.query?.type || Type.Multiple,
       num: context.query?.num || '10',
-      category: context.query?.category || '12',
+      category: context.query?.category || Category.AnyCategory,
     },
   }
 }
