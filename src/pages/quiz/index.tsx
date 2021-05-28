@@ -3,7 +3,7 @@ import { useQuery } from 'react-query'
 import { GetServerSideProps } from 'next'
 import { QuestionCard } from '../../components'
 import { fetchQuizQuestions } from '../../services'
-import { Difficulty, Question, QuestionState } from '../../services/quiz'
+import { Question, QuestionState } from '../../services/quiz'
 import { shuffleArray } from '../../utils/shuffleArray'
 import { Wrapper } from '../../styles/pages/quiz'
 
@@ -25,7 +25,7 @@ const QuizPage = ({ difficulty, num, type, category }) => {
 
   const { data, refetch } = useQuery(
     'fetchQuizQuestions',
-    () => fetchQuizQuestions(num, difficulty),
+    () => fetchQuizQuestions(num, difficulty, category, type),
     {
       refetchOnWindowFocus: false,
       enabled: false,
@@ -126,7 +126,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
       difficulty: context.query?.difficulty || 'easy',
       type: context.query?.type || 'boolean',
       num: context.query?.num || '10',
-      category: context.query?.category || '10',
+      category: context.query?.category || '12',
     },
   }
 }

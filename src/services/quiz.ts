@@ -1,4 +1,5 @@
 import { API } from '../utils/API'
+import { Category, Type } from '../utils/seed'
 
 export type Question = {
   category: string
@@ -17,8 +18,15 @@ export enum Difficulty {
 
 export type QuestionState = Question & { answers: string[] }
 
-const fetchQuizQuestions = async (amount: number, difficulty: Difficulty) => {
-  return API.get(`?amount=${amount}&difficulty=${difficulty}`)
+const fetchQuizQuestions = async (
+  amount: number,
+  difficulty: Difficulty,
+  category: Category,
+  type: Type,
+) => {
+  return API.get(
+    `?amount=${amount}&difficulty=${difficulty}&category=${category}&type=${type}`,
+  )
 }
 
 export { fetchQuizQuestions }
