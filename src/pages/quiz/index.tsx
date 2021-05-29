@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useQuery } from 'react-query'
 import { GetServerSideProps } from 'next'
-import { QuestionCard } from '../../components'
+import { QuestionCard, Loader } from '../../components'
 import { fetchQuizQuestions } from '../../services'
 import { Question, QuestionState } from '../../services/quiz'
 import { shuffleArray } from '../../utils/shuffleArray'
@@ -77,7 +77,7 @@ const QuizPage = ({ difficulty, num, type, category }) => {
     }
   }
 
-  const nextQuestion = () => {
+  const handleNextBtnClick = () => {
     // Move to next question
     const nextQuestion = number + 1
     if (nextQuestion === TOTAL_QUESTIONS) {
@@ -90,8 +90,13 @@ const QuizPage = ({ difficulty, num, type, category }) => {
   return (
     <Wrapper>
       <h1>Quiz App</h1>
-      {!gameOver && <p className="score">Score: {score}</p>}
-      {loading && <p>Loading Questions...</p>}
+      {!loading && !gameOver && <p className="score">Score: {score}</p>}
+      {loading && (
+        <div className="loader-wrapper">
+          <Loader />
+          <p>Loading Questions...</p>
+        </div>
+      )}
       {!loading && !gameOver && (
         <QuestionCard
           questionNum={number + 1}
@@ -106,7 +111,7 @@ const QuizPage = ({ difficulty, num, type, category }) => {
         !loading &&
         userAnswers.length === number + 1 &&
         number !== TOTAL_QUESTIONS - 1 && (
-          <button className="next" onClick={nextQuestion}>
+          <button className="next" onClick={handleNextBtnClick}>
             Next
           </button>
         )}

@@ -11,6 +11,13 @@ export const Wrapper = styled.div`
     margin: 0;
   }
 
+  .loader-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
   h1 {
     font-family: Fascinate Inline, Haettenschweiler, 'Arial Narrow Bold',
       sans-serif;
@@ -46,4 +53,5 @@ export const Wrapper = styled.div`
   .score {
     text-align: center;
   }
+  text-align: center;
 `
