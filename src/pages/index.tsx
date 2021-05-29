@@ -4,6 +4,7 @@ import Router from 'next/router'
 import { Wrapper } from '../styles/pages'
 import { Difficulty, Category, QuestionType } from '../interfaces'
 import { removeEmptyFromObj } from '../utils'
+import { Button } from '../components'
 
 const getObj = Enum => {
   const options: any = []
@@ -90,7 +91,7 @@ export default function Home() {
           options={getObj(QuestionType)}
           onChange={e => handleSelectChange(e, 'type')}
         />
-        <button onClick={handleStartTrivia}>Start Trivia</button>
+        <Button onClick={handleStartTrivia}>Start Trivia</Button>
       </div>
     </Wrapper>
   )

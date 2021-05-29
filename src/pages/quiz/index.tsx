@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useQuery } from 'react-query'
 import { GetServerSideProps } from 'next'
-import { QuestionCard, Loader } from '../../components'
+import { QuestionCard, Loader, Button } from '../../components'
 import { fetchQuizQuestions } from '../../services'
 import {
   Question,
@@ -110,9 +110,9 @@ const QuizPage = ({ difficulty, num, type, category }) => {
         !loading &&
         userAnswers.length === number + 1 &&
         number !== TOTAL_QUESTIONS - 1 && (
-          <button className="next" onClick={handleNextBtnClick}>
+          <Button className="next" onClick={handleNextBtnClick}>
             Next
-          </button>
+          </Button>
         )}
     </Wrapper>
   )
