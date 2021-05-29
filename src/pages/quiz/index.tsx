@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useQuery } from 'react-query'
 import { GetServerSideProps } from 'next'
+import Router from 'next/router'
 import { QuestionCard, Loader, Button } from '../../components'
 import { fetchQuizQuestions } from '../../services'
 import {
@@ -21,7 +22,7 @@ const QuizPage = ({ difficulty, num, type, category }) => {
   const [userAnswers, setUserAnswers] = useState<AnswerObject[]>([])
   const [score, setScore] = useState(0)
   const [gameOver, setGameOver] = useState(true)
-  const TOTAL_QUESTIONS = 10
+  const TOTAL_QUESTIONS = 3
 
   const { data, refetch } = useQuery(
     'fetchQuizQuestions',
@@ -51,6 +52,10 @@ const QuizPage = ({ difficulty, num, type, category }) => {
     setLoading(true)
     setGameOver(false)
     await refetch()
+  }
+
+  const handleBackBtnClick = () => {
+    Router.push('/')
   }
 
   useEffect(() => {
@@ -96,7 +101,7 @@ const QuizPage = ({ difficulty, num, type, category }) => {
           <p>Loading Questions...</p>
         </div>
       )}
-      {!loading && !gameOver && (
+      {!loading && !gameOver && userAnswers.length !== TOTAL_QUESTIONS && (
         <QuestionCard
           questionNum={number + 1}
           totalQuestions={TOTAL_QUESTIONS}
@@ -114,6 +119,11 @@ const QuizPage = ({ difficulty, num, type, category }) => {
             Next
           </Button>
         )}
+      {(gameOver || userAnswers.length === TOTAL_QUESTIONS) && (
+        <Button onClick={handleBackBtnClick} className="next">
+          Back
+        </Button>
+      )}
     </Wrapper>
   )
 }
@@ -125,7 +135,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
     props: {
       difficulty: context.query?.difficulty || Difficulty.EASY,
       type: context.query?.type || QuestionType.Multiple,
-      num: context.query?.num || '10',
+      num: context.query?.num || '3',
       category: context.query?.category || Category.AnyCategory,
     },
   }

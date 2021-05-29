@@ -17,7 +17,7 @@ const getObj = Enum => {
 }
 
 export default function Home() {
-  const [numOfQuestions, setNumOfQuestions] = useState(10)
+  const [numOfQuestions, setNumOfQuestions] = useState(3)
   const [difficulty, setDifficulty] = useState<any>(Difficulty.EASY)
   const [category, setCategory] = useState<any>(Category.AnyCategory)
   const [type, setType] = useState<any>(QuestionType.Multiple)
