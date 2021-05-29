@@ -1,13 +1,17 @@
-import React, { FC } from 'react'
-
+import React, { FC, ReactNode } from 'react'
 interface IProps {
-  label: string
+  children: ReactNode
+  className?: string
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => any
 }
-const Button: FC<IProps> = ({ label }) => {
+
+const Button: FC<IProps> = ({ children, className, onClick }) => {
   return (
-    <div>
-      <button>{label}</button>
-    </div>
+    <>
+      <button className={className} onClick={onClick}>
+        {children}
+      </button>
+    </>
   )
 }
 

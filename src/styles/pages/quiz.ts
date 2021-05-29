@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 
 export const Wrapper = styled.div`
+  text-align: center;
+
   > p {
     color: #fff;
   }
@@ -9,6 +11,13 @@ export const Wrapper = styled.div`
     color: #fff;
     font-size: 2rem;
     margin: 0;
+  }
+
+  .loader-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 
   h1 {

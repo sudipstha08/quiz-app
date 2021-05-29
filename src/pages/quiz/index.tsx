@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import { useQuery } from 'react-query'
 import { GetServerSideProps } from 'next'
-import { QuestionCard } from '../../components'
+import Router from 'next/router'
+import { QuestionCard, Loader, Button } from '../../components'
 import { fetchQuizQuestions } from '../../services'
-import { Question, QuestionState } from '../../services/quiz'
+import {
+  Question,
+  QuestionState,
+  AnswerObject,
+  Difficulty,
+  QuestionType,
+  Category,
+} from '../../interfaces'
 import { shuffleArray } from '../../utils/shuffleArray'
 import { Wrapper } from '../../styles/pages/quiz'
-import { Difficulty, Type, Category } from '../../utils/seed'
-
-export type AnswerObject = {
-  question: string
-  answer: string
-  correct: boolean
-  correctAnswer: string
-}
 
 const QuizPage = ({ difficulty, num, type, category }) => {
   const [loading, setLoading] = useState(false)
@@ -22,7 +22,7 @@ const QuizPage = ({ difficulty, num, type, category }) => {
   const [userAnswers, setUserAnswers] = useState<AnswerObject[]>([])
   const [score, setScore] = useState(0)
   const [gameOver, setGameOver] = useState(true)
-  const TOTAL_QUESTIONS = 10
+  const TOTAL_QUESTIONS = num
 
   const { data, refetch } = useQuery(
     'fetchQuizQuestions',
@@ -54,6 +54,10 @@ const QuizPage = ({ difficulty, num, type, category }) => {
     await refetch()
   }
 
+  const handleBackBtnClick = () => {
+    Router.push('/')
+  }
+
   useEffect(() => {
     startTrivia()
   }, [difficulty, num, type, category])
@@ -77,7 +81,7 @@ const QuizPage = ({ difficulty, num, type, category }) => {
     }
   }
 
-  const nextQuestion = () => {
+  const handleNextBtnClick = () => {
     // Move to next question
     const nextQuestion = number + 1
     if (nextQuestion === TOTAL_QUESTIONS) {
@@ -90,9 +94,14 @@ const QuizPage = ({ difficulty, num, type, category }) => {
   return (
     <Wrapper>
       <h1>Quiz App</h1>
-      {!gameOver && <p className="score">Score: {score}</p>}
-      {loading && <p>Loading Questions...</p>}
-      {!loading && !gameOver && (
+      {!loading && !gameOver && <p className="score">Score: {score}</p>}
+      {loading && (
+        <div className="loader-wrapper">
+          <Loader />
+          <p>Loading Questions...</p>
+        </div>
+      )}
+      {!loading && !gameOver && userAnswers.length !== TOTAL_QUESTIONS && (
         <QuestionCard
           questionNum={number + 1}
           totalQuestions={TOTAL_QUESTIONS}
@@ -106,10 +115,15 @@ const QuizPage = ({ difficulty, num, type, category }) => {
         !loading &&
         userAnswers.length === number + 1 &&
         number !== TOTAL_QUESTIONS - 1 && (
-          <button className="next" onClick={nextQuestion}>
+          <Button className="next" onClick={handleNextBtnClick}>
             Next
-          </button>
+          </Button>
         )}
+      {(gameOver || userAnswers.length === TOTAL_QUESTIONS) && (
+        <Button onClick={handleBackBtnClick} className="next">
+          Back
+        </Button>
+      )}
     </Wrapper>
   )
 }
@@ -120,8 +134,8 @@ export const getServerSideProps: GetServerSideProps = async context => {
   return {
     props: {
       difficulty: context.query?.difficulty || Difficulty.EASY,
-      type: context.query?.type || Type.Multiple,
-      num: context.query?.num || '10',
+      type: context.query?.type || QuestionType.Multiple,
+      num: context.query?.num || '5',
       category: context.query?.category || Category.AnyCategory,
     },
   }
