@@ -27,6 +27,24 @@ export const Wrapper = styled.div`
     box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25);
     text-align: center;
 
+    .input-num {
+      width: 100%;
+      border-style: none;
+      border: 1px solid rgb(204, 204, 204);
+      outline: none !important;
+      height: 40px;
+      border-radius: 5px;
+      box-shadow: none !important;
+      & :active,
+      :focus {
+        border: 2px solid blue;
+      }
+    }
+
+    .select {
+      margin-top: 10px;
+    }
+
     p {
       font-size: 1rem;
     }

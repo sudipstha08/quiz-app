@@ -59,6 +59,7 @@ export default function Home() {
           max={50}
           min={5}
           placeholder="Number of questions"
+          className="input-num"
         />
         <Select
           value={difficulty}
@@ -66,6 +67,7 @@ export default function Home() {
           name="difficulty"
           placeholder="Difficulty"
           options={getOptions(Difficulty)}
+          className="select"
         />
         <Select
           value={category}
@@ -73,6 +75,7 @@ export default function Home() {
           placeholder="Category"
           options={getOptions(Category)}
           onChange={e => handleSelectChange(e, 'category')}
+          className="select"
         />
         <Select
           value={type}
@@ -80,6 +83,7 @@ export default function Home() {
           placeholder="Type"
           options={getOptions(QuestionType)}
           onChange={e => handleSelectChange(e, 'type')}
+          className="select"
         />
         <Button onClick={handleStartTrivia}>Start Trivia</Button>
       </div>
