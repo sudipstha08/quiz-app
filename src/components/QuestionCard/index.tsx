@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
 import { QuestionCardProps } from '../../interfaces'
+import { Button } from '../Button'
 import { Wrapper, ButtonWrapper } from '../../styles/components/QuestionCard'
 
 const QuestionCard: FC<QuestionCardProps> = ({
@@ -23,9 +24,9 @@ const QuestionCard: FC<QuestionCardProps> = ({
             correct={userAnswer?.correctAnswer === answer}
             userClicked={userAnswer?.answer === answer}
           >
-            <button disabled={!!userAnswer} value={answer} onClick={callback}>
+            <Button disabled={!!userAnswer} value={answer} onClick={callback}>
               <span dangerouslySetInnerHTML={{ __html: answer }}></span>
-            </button>
+            </Button>
           </ButtonWrapper>
         ))}
       </div>
