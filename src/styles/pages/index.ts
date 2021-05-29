@@ -34,6 +34,7 @@ export const Wrapper = styled.div`
       outline: none !important;
       height: 40px;
       border-radius: 5px;
+      padding: 0 10px;
       box-shadow: none !important;
       & :active,
       :focus {
