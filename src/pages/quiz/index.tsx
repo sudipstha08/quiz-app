@@ -22,7 +22,7 @@ const QuizPage = ({ difficulty, num, type, category }) => {
   const [userAnswers, setUserAnswers] = useState<AnswerObject[]>([])
   const [score, setScore] = useState(0)
   const [gameOver, setGameOver] = useState(true)
-  const TOTAL_QUESTIONS = 3
+  const TOTAL_QUESTIONS = num
 
   const { data, refetch } = useQuery(
     'fetchQuizQuestions',
@@ -135,7 +135,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
     props: {
       difficulty: context.query?.difficulty || Difficulty.EASY,
       type: context.query?.type || QuestionType.Multiple,
-      num: context.query?.num || '3',
+      num: context.query?.num || '5',
       category: context.query?.category || Category.AnyCategory,
     },
   }
