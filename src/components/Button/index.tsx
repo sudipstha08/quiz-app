@@ -1,13 +1,7 @@
-import React, { FC, ReactNode } from 'react'
-interface IProps {
-  children: ReactNode
-  className?: string
-  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => any
-  disabled?: boolean
-  value?: any
-}
+import React, { FC } from 'react'
+import { ButtonProps } from '../../interfaces/button'
 
-const Button: FC<IProps> = ({
+const Button: FC<ButtonProps> = ({
   children,
   className,
   onClick,
