@@ -58,6 +58,10 @@ const QuizPage = ({ difficulty, num, type, category }) => {
     Router.push('/')
   }
 
+  const handleStartAgain = () => {
+    refetch()
+  }
+
   useEffect(() => {
     startTrivia()
   }, [difficulty, num, type, category])
@@ -101,7 +105,7 @@ const QuizPage = ({ difficulty, num, type, category }) => {
           <p>Loading Questions...</p>
         </div>
       )}
-      {!loading && !gameOver && userAnswers.length !== TOTAL_QUESTIONS && (
+      {!loading && !gameOver && userAnswers.length != TOTAL_QUESTIONS && (
         <QuestionCard
           questionNum={number + 1}
           totalQuestions={TOTAL_QUESTIONS}
@@ -119,10 +123,15 @@ const QuizPage = ({ difficulty, num, type, category }) => {
             Next
           </Button>
         )}
-      {(gameOver || userAnswers.length === TOTAL_QUESTIONS) && (
-        <Button onClick={handleBackBtnClick} className="next">
-          Back
-        </Button>
+      {(gameOver || userAnswers.length == TOTAL_QUESTIONS) && (
+        <>
+          <Button onClick={handleBackBtnClick} className="next">
+            Back
+          </Button>
+          <Button onClick={handleStartAgain} className="next">
+            Try Again
+          </Button>
+        </>
       )}
     </Wrapper>
   )
