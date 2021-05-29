@@ -3,17 +3,16 @@ import { useQuery } from 'react-query'
 import { GetServerSideProps } from 'next'
 import { QuestionCard, Loader } from '../../components'
 import { fetchQuizQuestions } from '../../services'
-import { Question, QuestionState } from '../../services/quiz'
+import {
+  Question,
+  QuestionState,
+  AnswerObject,
+  Difficulty,
+  QuestionType,
+  Category,
+} from '../../interfaces'
 import { shuffleArray } from '../../utils/shuffleArray'
 import { Wrapper } from '../../styles/pages/quiz'
-import { Difficulty, Type, Category } from '../../utils/seed'
-
-export type AnswerObject = {
-  question: string
-  answer: string
-  correct: boolean
-  correctAnswer: string
-}
 
 const QuizPage = ({ difficulty, num, type, category }) => {
   const [loading, setLoading] = useState(false)
@@ -125,7 +124,7 @@ export const getServerSideProps: GetServerSideProps = async context => {
   return {
     props: {
       difficulty: context.query?.difficulty || Difficulty.EASY,
-      type: context.query?.type || Type.Multiple,
+      type: context.query?.type || QuestionType.Multiple,
       num: context.query?.num || '10',
       category: context.query?.category || Category.AnyCategory,
     },

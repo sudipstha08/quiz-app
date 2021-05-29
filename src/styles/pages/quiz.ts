@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 
 export const Wrapper = styled.div`
+  text-align: center;
+
   > p {
     color: #fff;
   }
@@ -53,5 +55,4 @@ export const Wrapper = styled.div`
   .score {
     text-align: center;
   }
-  text-align: center;
 `

@@ -1,17 +1,8 @@
 import React, { FC } from 'react'
-import { AnswerObject } from '../../pages/quiz'
+import { QuestionCardProps } from '../../interfaces'
 import { Wrapper, ButtonWrapper } from '../../styles/components/QuestionCard'
 
-interface IProps {
-  question: string
-  answers: string[]
-  callback: (e: React.MouseEvent<HTMLButtonElement>) => void
-  userAnswer: AnswerObject | undefined
-  questionNum: number
-  totalQuestions: number
-}
-
-const QuestionCard: FC<IProps> = ({
+const QuestionCard: FC<QuestionCardProps> = ({
   question,
   answers,
   callback,
