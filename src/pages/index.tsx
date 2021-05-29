@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Select from 'react-select'
 import Router from 'next/router'
 import { Wrapper } from '../styles/pages'
-import { Difficulty, Category, Type } from '../utils/seed'
+import { Difficulty, Category, QuestionType } from '../interfaces'
 import { removeEmptyFromObj } from '../utils'
 
 const getObj = Enum => {
@@ -19,7 +19,7 @@ export default function Home() {
   const [numOfQuestions, setNumOfQuestions] = useState(10)
   const [difficulty, setDifficulty] = useState<any>(Difficulty.EASY)
   const [category, setCategory] = useState<any>(Category.AnyCategory)
-  const [type, setType] = useState<any>(Type.Multiple)
+  const [type, setType] = useState<any>(QuestionType.Multiple)
 
   const handleInputChange = e => {
     setNumOfQuestions(e.target.value)
@@ -87,7 +87,7 @@ export default function Home() {
           value={type}
           name="type"
           placeholder="Type"
-          options={getObj(Type)}
+          options={getObj(QuestionType)}
           onChange={e => handleSelectChange(e, 'type')}
         />
         <button onClick={handleStartTrivia}>Start Trivia</button>
