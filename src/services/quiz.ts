@@ -7,9 +7,9 @@ const fetchQuizQuestions = async (
   category: Category,
   type: QuestionType,
 ) => {
-  return API.get(
-    `?amount=${amount}&difficulty=${difficulty}&category=${category}&type=${type}`,
-  )
+  let query = `?amount=${amount}&difficulty=${difficulty}&type=${type}`
+  if (category) query = query + `&category=${category}`
+  return API.get(query)
 }
 
 export { fetchQuizQuestions }
