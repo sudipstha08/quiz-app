@@ -3,7 +3,7 @@ import Select from 'react-select'
 import Router from 'next/router'
 import { Wrapper } from '../styles/pages'
 import { Difficulty, Category, QuestionType } from '../interfaces'
-import { removeEmptyFromObj, getOptions } from '../utils'
+import { removeEmptyFromObj, getOptions } from '../services/utils'
 import { Button } from '../components'
 
 export default function Home() {

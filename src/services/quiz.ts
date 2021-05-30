@@ -1,4 +1,4 @@
-import { API } from '../utils/API'
+import { API } from './utils'
 import { Difficulty, Category, QuestionType } from '../interfaces'
 
 const fetchQuizQuestions = async (
