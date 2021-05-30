@@ -12,7 +12,7 @@ import {
   QuestionType,
   Category,
 } from '../../interfaces'
-import { shuffleArray } from '../../utils/shuffleArray'
+import { shuffleArray } from '../../utils'
 import { Wrapper } from '../../styles/pages/quiz'
 
 const QuizPage = ({ difficulty, num, type, category }) => {
