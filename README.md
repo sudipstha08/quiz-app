@@ -20,7 +20,7 @@
 | `eslint/prettier`   | linting                      |
 | `styled-components` | css to style your components |
 
-<h5>API docs</h5>
+<h5>API docs</h5> :books:
 
   ```
     https://opentdb.com/api_config.php
